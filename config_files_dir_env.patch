@@ -1,0 +1,26 @@
+diff --git a/packages/backend/src/config.ts b/packages/backend/src/config.ts
+index 9d1945e4d..173890c41 100644
+--- a/packages/backend/src/config.ts
++++ b/packages/backend/src/config.ts
+@@ -128,7 +128,7 @@ const _dirname = dirname(_filename);
+ /**
+  * Path of configuration directory
+  */
+-const dir = `${_dirname}/../../../.config`;
++const dir = process.env.MISSKEY_CONFIG_DIR ? process.env.MISSKEY_CONFIG_DIR : `${_dirname}/../../../.config`;
+ 
+ /**
+  * Path of configuration file
+diff --git a/packages/backend/src/core/InternalStorageService.ts b/packages/backend/src/core/InternalStorageService.ts
+index 7c03af7de..8d69213eb 100644
+--- a/packages/backend/src/core/InternalStorageService.ts
++++ b/packages/backend/src/core/InternalStorageService.ts
+@@ -10,7 +10,7 @@ import { bindThis } from '@/decorators.js';
+ const _filename = fileURLToPath(import.meta.url);
+ const _dirname = dirname(_filename);
+ 
+-const path = Path.resolve(_dirname, '../../../../files');
++const path = process.env.MISSKEY_FILES_DIR ? process.env.MISSKEY_FILES_DIR : Path.resolve(_dirname, '../../../../files');
+ 
+ @Injectable()
+ export class InternalStorageService {
