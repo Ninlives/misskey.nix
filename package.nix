@@ -37,8 +37,8 @@ mkPnpmPackage {
     owner = "misskey-dev";
     repo = "misskey";
     fetchSubmodules = true;
-    rev = "32c741154db29381754253a4e38fbc0f75b6e770";
-    sha256 = "sha256-rEsu+r3DhbAvHJX7H11j/Qv254zeXk6KVHQBgzMg/+U=";
+    rev = "7093662ce5c17a8096c33712d0056de9fd4b5a41";
+    sha256 = "sha256-rFowRU8wJHx1uCs68cpY5wxTsioLtzgzfpgZZzE2A5I=";
   };
   patches = [ ./config_files_dir_env.patch ];
   lockOverride.packages = {
