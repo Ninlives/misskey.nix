@@ -5,6 +5,11 @@ in
 {
   options.services.misskey = {
     enable = mkEnableOption "Misskey service";
+    package = mkOption {
+      type = package;
+      description = "The Misskey package used by the service.";
+      default = pkgs.misskey;
+    };
     config.directory = mkOption {
       type = path;
       description = "The directory contains Misskey configuration files.";
@@ -41,7 +46,7 @@ in
       serviceConfig = {
         User = config.users.users.misskey.name;
         Group = config.users.groups.misskey.name;
-        WorkingDirectory = misskey;
+        WorkingDirectory = cfg.package;
         StateDirectory = "misskey";
         Restart = "always";
       };
