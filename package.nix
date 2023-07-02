@@ -40,7 +40,7 @@ mkPnpmPackage {
     rev = "7093662ce5c17a8096c33712d0056de9fd4b5a41";
     sha256 = "sha256-rFowRU8wJHx1uCs68cpY5wxTsioLtzgzfpgZZzE2A5I=";
   };
-  patches = [ ./config_files_dir_env.patch ./relay.patch ];
+  patches = [ ./config_files_dir_env.patch ];
   lockOverride.packages = {
     "github.com/misskey-dev/browser-image-resizer/0227e860621e55cbed0aabe6dc601096a7748c4a".resolution.integrity = "sha512-g/obrtD0QNgDQEYw9R+Pdyw9GtGYCbAh5y6XG/TXyShCHP62o8hzQsSJ+VDRp2/qPLWCxApyJA/IpQ6dOncA2g==";    
     "github.com/misskey-dev/buraha/92b20c1ab15c5cb5a224cf3b1ecd4f6baca12b7c".resolution.integrity = "sha512-TDkaeS+H6xj9S2FtTosQoVweEjtF+CqNjwMdn+y9SWaz5+7HgahtCVFFTN/ltvx8jJd5lMcgAik/WxFSkCG9jw==";
