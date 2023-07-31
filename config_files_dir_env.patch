@@ -1,8 +1,8 @@
 diff --git a/packages/backend/src/config.ts b/packages/backend/src/config.ts
-index 9d1945e4d..173890c41 100644
+index 253975096..23162cea1 100644
 --- a/packages/backend/src/config.ts
 +++ b/packages/backend/src/config.ts
-@@ -128,7 +128,7 @@ const _dirname = dirname(_filename);
+@@ -121,7 +121,7 @@ const _dirname = dirname(_filename);
  /**
   * Path of configuration directory
   */
