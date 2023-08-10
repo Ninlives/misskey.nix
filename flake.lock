@@ -44,11 +44,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1686995225,
-        "narHash": "sha256-uZNjBHX8zqFqgWy7vzuJK3E8+ttkL5933gUYelBhQOI=",
+        "lastModified": 1691661013,
+        "narHash": "sha256-m7dhwjnDw2U7PDUatHcVJXd8wrDLpIGlQac0im6+0fk=",
         "owner": "Ninlives",
         "repo": "pnpm2nix",
-        "rev": "59d80cfd39217e130f5a961947cce5e29bc96a41",
+        "rev": "86f8995bbe56a66459b6ca2f790db6272c616e39",
         "type": "github"
       },
       "original": {

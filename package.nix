@@ -40,7 +40,7 @@ mkPnpmPackage {
     rev = "a8d45d4b0d24e0c422d4e6d8feab57035239db56";
     sha256 = "sha256-M+O1pDn1gnpheY8f4PCsUdWCvJcXq4+XDXSJTQhZyAQ=";
   };
-  patches = [ ./config_files_dir_env.patch ./build-log.patch ];
+  patches = [ ./config_files_dir_env.patch ./build-log.patch ./fix_copy.patch ];
   lockOverride.packages = {
     "github.com/misskey-dev/browser-image-resizer/0227e860621e55cbed0aabe6dc601096a7748c4a".resolution.integrity = "sha512-g/obrtD0QNgDQEYw9R+Pdyw9GtGYCbAh5y6XG/TXyShCHP62o8hzQsSJ+VDRp2/qPLWCxApyJA/IpQ6dOncA2g==";    
     "github.com/misskey-dev/sharp-read-bmp/02d9dc189fa7df0c4bea09330be26741772dac01".resolution.integrity = "sha512-uv9YdN1KS6queU2iY+RMS3U2IhCSn/zDDoZBqzUp1SmJNnCgynfrguiilYkric/aJx7yBKjuDYUEipNsQ1ePBw==";
@@ -48,6 +48,21 @@ mkPnpmPackage {
     "github.com/misskey-dev/summaly/089a0ad8e8c780e5c088b1c528aa95c5827cbdcc".resolution.integrity = "sha512-MXio3ndxVgVPmFblnWL8VliFrfww/rca33VhisLTrMk/zEC20x1eZKhloWE6qPBA8TK5ZfaAdMJij1MFTJMuAg==";
   };
   extraBuildInputs = [ vips ];
+
+  postConfigure = ''
+    for package in "backend" "frontend" "sw";do
+      modules=$(readlink "packages/$package/node_modules")
+      rm "packages/$package/node_modules"
+      mkdir -p "packages/$package/node_modules"
+      for module in $(find $modules/ -maxdepth 1);do
+        if [[ $(basename "$module") == "misskey-js" ]];then
+          continue
+        fi
+        ln -s "$module" "packages/$package/node_modules"
+      done
+      ln -s "../../misskey-js" "packages/$package/node_modules/misskey-js"
+    done
+  '';
 
   installPhase = lib.concatMapStringsSep "\n" (p: ''
     mkdir -p "$out/${dirOf p}" 
