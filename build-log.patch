@@ -1,13 +1,13 @@
 diff --git a/package.json b/package.json
-index 7006309a1..2441eda18 100644
+index 125a33f40..0f13d1812 100644
 --- a/package.json
 +++ b/package.json
-@@ -16,7 +16,7 @@
+@@ -15,7 +15,7 @@
+ 	"private": true,
  	"scripts": {
  		"build-pre": "node ./scripts/build-pre.js",
- 		"build-assets": "node ./scripts/build-assets.mjs",
--		"build": "pnpm build-pre && pnpm -r build && pnpm build-assets",
-+		"build": "pnpm build-pre && pnpm --stream -r build && pnpm build-assets",
+-		"build": "pnpm build-pre && pnpm -r build && pnpm gulp",
++		"build": "pnpm build-pre && pnpm --stream -r build && pnpm gulp",
  		"build-storybook": "pnpm --filter frontend build-storybook",
- 		"start": "pnpm check:connect && cd packages/backend && node ./built/boot/entry.js",
- 		"start:test": "cd packages/backend && cross-env NODE_ENV=test node ./built/boot/entry.js",
+ 		"start": "pnpm check:connect && cd packages/backend && node ./built/boot/index.js",
+ 		"start:test": "cd packages/backend && cross-env NODE_ENV=test node ./built/boot/index.js",

@@ -37,15 +37,15 @@ mkPnpmPackage {
     owner = "misskey-dev";
     repo = "misskey";
     fetchSubmodules = true;
-    rev = "3043b5256d7f9d9228035b0af9943027e0222dd4";
-    sha256 = "sha256-PiJiY2fR/Fzp0mi75LnvVBXAdQrHYBxPLaZji2VWD30=";
+    rev = "a8d45d4b0d24e0c422d4e6d8feab57035239db56";
+    sha256 = "sha256-M+O1pDn1gnpheY8f4PCsUdWCvJcXq4+XDXSJTQhZyAQ=";
   };
-  patches = [ ./config_files_dir_env.patch ./build-log.patch ];
+  patches = [ ./config_files_dir_env.patch ./build-log.patch ./fix_copy.patch ];
   lockOverride.packages = {
     "github.com/misskey-dev/browser-image-resizer/0227e860621e55cbed0aabe6dc601096a7748c4a".resolution.integrity = "sha512-g/obrtD0QNgDQEYw9R+Pdyw9GtGYCbAh5y6XG/TXyShCHP62o8hzQsSJ+VDRp2/qPLWCxApyJA/IpQ6dOncA2g==";    
     "github.com/misskey-dev/sharp-read-bmp/02d9dc189fa7df0c4bea09330be26741772dac01".resolution.integrity = "sha512-uv9YdN1KS6queU2iY+RMS3U2IhCSn/zDDoZBqzUp1SmJNnCgynfrguiilYkric/aJx7yBKjuDYUEipNsQ1ePBw==";
-    "github.com/misskey-dev/storybook-addon-misskey-theme/cf583db098365b2ccc81a82f63ca9c93bc32b640(@storybook/blocks@7.5.1)(@storybook/components@7.5.0)(@storybook/core-events@7.5.1)(@storybook/manager-api@7.5.1)(@storybook/preview-api@7.5.1)(@storybook/theming@7.5.1)(@storybook/types@7.5.1)(react-dom@18.2.0)(react@18.2.0)".resolution.integrity = "sha512-QaH1uZSlApQ2CZPkHfhmNm89I92L02s3MdbUPG66TmAyqMaqzxd/AvobORBjtTZ0ymUSa3ii482dRXi+fFb19w==";
-    "github.com/misskey-dev/summaly/d2d8db49943ccb201c1b1b283e9d0a630519fac7".resolution.integrity = "sha512-SSi5ofwer6a/jr5XiDUU94nGcRawQdd/uxunVSleFn6SgHd+GF3Zy9y6sSnM3qNWRM1CfVrFFuX4lAcyPH519A==";
+    "github.com/misskey-dev/storybook-addon-misskey-theme/cf583db098365b2ccc81a82f63ca9c93bc32b640(@storybook/blocks@7.0.27)(@storybook/components@7.1.0)(@storybook/core-events@7.0.27)(@storybook/manager-api@7.0.27)(@storybook/preview-api@7.0.27)(@storybook/theming@7.0.27)(@storybook/types@7.0.27)(react-dom@18.2.0)(react@18.2.0)".resolution.integrity = "sha512-QaH1uZSlApQ2CZPkHfhmNm89I92L02s3MdbUPG66TmAyqMaqzxd/AvobORBjtTZ0ymUSa3ii482dRXi+fFb19w==";
+    "github.com/misskey-dev/summaly/089a0ad8e8c780e5c088b1c528aa95c5827cbdcc".resolution.integrity = "sha512-MXio3ndxVgVPmFblnWL8VliFrfww/rca33VhisLTrMk/zEC20x1eZKhloWE6qPBA8TK5ZfaAdMJij1MFTJMuAg==";
   };
   extraBuildInputs = [ vips ];
 
@@ -64,13 +64,8 @@ mkPnpmPackage {
     done
   '';
 
-  installPhase = ''
-    runHook preInstall
-    chmod -R u+w ./built
-    ${lib.concatMapStringsSep "\n" (p: ''
-      mkdir -p "$out/${dirOf p}" 
-      mv -v "${p}" "$out/${p}"
-    '') installedPaths}
-    runHook postInstall
-  '';
+  installPhase = lib.concatMapStringsSep "\n" (p: ''
+    mkdir -p "$out/${dirOf p}" 
+    mv -v "${p}" "$out/${p}"
+  '') installedPaths;
 }
