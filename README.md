@@ -1,3 +1,5 @@
+Since Misskey has been packaged in nixpkgs and nixos module is also provided, this repository will be archived.
+
 # Introduction
 
 This flake provides the [Misskey](https://github.com/misskey-dev/misskey) package and a very basic module for running Misskey instances.
